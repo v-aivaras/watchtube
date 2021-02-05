@@ -19,8 +19,22 @@
 
         <div id="mastHeadContainer"> <!-- Top Bar -->
             <button class="navShowHide">
-                <img src="assets/images/icons/menu.png" alt="Menu icon">
+                <img src="assets/images/icons/menu.png" alt="Menu icon" title="Menu">
             </button>
+
+            <a class="logoContainer" href="index.php">
+                <img src="assets/images/icons/WatchTubeLogo.png" alt="Site logo" title="logo">
+            </a>
+
+            <div class="searchBarContainer">
+                <form action="search.php" method="GET">
+                    <input type="text" class="searchBar" name="term" placeholder="Search...">
+                    <button class="searchButton">
+                    <img src="assets/images/icons/search.png" alt="Search icon" title="Search">
+                    </button>
+                </form>
+
+            </div>
         </div>
 
         <div id="sideNavContainer" style="display:none;"> <!-- Side Menu -->
