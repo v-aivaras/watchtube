@@ -16,7 +16,7 @@ class VideoDetailsFormProvider {
         $uploadButton = $this->createUploadButton();
 
         return "
-            <form action='processing.php' method='POST'>
+            <form action='processing.php' method='POST' enctype='multipart/form-data'>
                 $fileInput
                 $titleInput
                 $descriptionInput
