@@ -27,6 +27,7 @@ class VideoProcessor {
         $isValidData = $this->processData($videoData, $tempFilePath);
 
         if(!$isValidData) {
+            echo "BAD 1\n";
             return false;
         }
 
