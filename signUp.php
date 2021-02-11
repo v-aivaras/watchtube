@@ -1,6 +1,10 @@
 <?php  
 require_once("includes/config.php"); 
+require_once("includes/classes/Account.php"); 
+require_once("includes/classes/Constants.php"); 
 require_once("includes/classes/FormSanitizer.php"); 
+
+$account = new Account($con);
 
 
 if(isset($_POST["submitButton"])) {
@@ -18,7 +22,10 @@ if(isset($_POST["submitButton"])) {
     $password = FormSanitizer::sanitizeFormPassword($_POST["password"]);
     $password2 = FormSanitizer::sanitizeFormPassword($_POST["password2"]);
 
-    
+    $account->register($firstName, $lastName, $username, $email, $email2, $password, $password2);
+
+
+
 }
 
 
@@ -59,13 +66,25 @@ if(isset($_POST["submitButton"])) {
 
                 <form action="signUp.php" method="POST" autocomplete="off">
 
+                    <?php echo $account->getError(Constants::$firstNameCharacters); ?>
                     <input type="text" name="firstName" placeholder="First name" autocomplete="off" required>
+                  
+                    <?php echo $account->getError(Constants::$lastNameCharacters); ?>
                     <input type="text" name="lastName" placeholder="Last name" autocomplete="off" required>
+                    
+                    <?php echo $account->getError(Constants::$usernameCharacters); ?>
+                    <?php echo $account->getError(Constants::$usernameTaken); ?>
                     <input type="text" name="username" placeholder="Username" autocomplete="off" required>
                    
+                    <?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
+                    <?php echo $account->getError(Constants::$emailInvalid); ?>
+                    <?php echo $account->getError(Constants::$emailTaken); ?>
                     <input type="email" name="email" placeholder="Email" autocomplete="off" required>
                     <input type="email" name="email2" placeholder="Confirm email" autocomplete="off" required>
                     
+                    <?php echo $account->getError(Constants::$passwordsDoNotMatch); ?>
+                    <?php echo $account->getError(Constants::$passwordNotAlphanumeric); ?>
+                    <?php echo $account->getError(Constants::$passwordLength); ?>
                     <input type="password" name="password" placeholder="Password" autocomplete="new-password" required>
                     <input type="password" name="password2" placeholder="Confirm password" autocomplete="new-password" required>
                     
