@@ -9,6 +9,23 @@ class Account {
         $this->con = $con;
     }
 
+    public function login($un, $pw) {
+        $pw = hash("sha512", $pw);
+        $query = $this->con->prepare("SELECT * FROM users WHERE username=:un AND password=:pw");
+        $query->bindParam(":un", $un);
+        $query->bindParam(":pw", $pw);
+
+        $query->execute();
+
+        if($query->rowCount() == 1) {
+            return true;
+        } else {
+            array_push($this->errorArray, Constants::$loginFailed);
+            return false;
+        }
+
+    }
+
     public function register($fn, $ln, $un, $em, $em2, $pw, $pw2) {
         $this->validateFirstName($fn);
         $this->validateLastName($ln);
@@ -24,7 +41,20 @@ class Account {
     }
 
     public function insertUserDetails($fn, $ln, $un, $em, $pw) {
-        return true;
+        
+        $pw = hash("sha512", $pw);
+        $profilePic = "assets/images/profilePictures/default.png";
+
+        $query = $this->con->prepare("INSERT INTO users (firstName, lastName, username, email, password, profilePic) 
+                                    VALUES (:fn, :ln, :un, :em, :pw, :pic)");
+        $query->bindParam(":fn", $fn);
+        $query->bindParam(":ln", $ln);
+        $query->bindParam(":un", $un);
+        $query->bindParam(":em", $em);
+        $query->bindParam(":pw", $pw);
+        $query->bindParam(":pic", $profilePic);
+        
+        return $query->execute();
     }
 
     private function validateFirstName($fn) {
