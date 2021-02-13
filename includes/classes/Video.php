@@ -69,6 +69,128 @@ class Video {
 
         $this->sqlData["views"] =  $this->sqlData["views"] + 1;
     }
+
+    public function getLikes() {
+        $videoId = $this->getId();
+
+        $query = $this->con->prepare("SELECT count(*) as 'count' FROM likes WHERE videoId=:videoId");
+        $query->bindParam(":videoId", $videoId);
+        $query->execute();
+
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        return $data["count"];
+    }
+
+    public function getDislikes() {
+        $videoId = $this->getId();
+
+        $query = $this->con->prepare("SELECT count(*) as 'count' FROM dislikes WHERE videoId=:videoId");
+        $query->bindParam(":videoId", $videoId);
+        $query->execute();
+
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        return $data["count"];
+    }
+
+    public function like() {
+        $videoId = $this->getId();
+        $username = $this->userLoggedInObj->getUsername();
+
+        if($this->wasLikedBy()) {
+            $query = $this->con->prepare("DELETE FROM likes WHERE username=:username AND videoId=:videoId");
+            $query->bindParam(":username", $username);
+            $query->bindParam(":videoId", $videoId);
+            $query->execute();
+
+            $result = array(
+                "likes" =>  -1,
+                "dislikes" => 0
+            );
+
+            return json_encode($result);
+
+        } else {
+            $query = $this->con->prepare("INSERT INTO likes (username, videoId) VALUES (:username, :videoId)");
+            $query->bindParam(":username", $username);
+            $query->bindParam(":videoId", $videoId);
+            $query->execute();
+
+            $query = $this->con->prepare("DELETE FROM dislikes WHERE username=:username AND videoId=:videoId");
+            $query->bindParam(":username", $username);
+            $query->bindParam(":videoId", $videoId);
+            $query->execute();
+            $count = $query->rowCount();
+
+            $result = array(
+                "likes" =>  1,
+                "dislikes" => 0 - $count
+            );
+
+            return json_encode($result);
+        }
+    }
+
+    public function dislike() {
+        $videoId = $this->getId();
+        $username = $this->userLoggedInObj->getUsername();
+
+        if($this->wasDislikedBy()) {
+            $query = $this->con->prepare("DELETE FROM dislikes WHERE username=:username AND videoId=:videoId");
+            $query->bindParam(":username", $username);
+            $query->bindParam(":videoId", $videoId);
+            $query->execute();
+
+            $result = array(
+                "likes" =>  0,
+                "dislikes" => -1
+            );
+
+            return json_encode($result);
+
+        } else {
+            $query = $this->con->prepare("INSERT INTO dislikes (username, videoId) VALUES (:username, :videoId)");
+            $query->bindParam(":username", $username);
+            $query->bindParam(":videoId", $videoId);
+            $query->execute();
+
+            $query = $this->con->prepare("DELETE FROM likes WHERE username=:username AND videoId=:videoId");
+            $query->bindParam(":username", $username);
+            $query->bindParam(":videoId", $videoId);
+            $query->execute();
+            $count = $query->rowCount();
+
+            $result = array(
+                "likes" =>  0 - $count,
+                "dislikes" => 1
+            );
+
+            return json_encode($result);
+        }
+    }
+
+    public function wasLikedBy() {
+        $videoId = $this->getId();
+        $username = $this->userLoggedInObj->getUsername();
+
+        $query = $this->con->prepare("SELECT * FROM likes WHERE username=:username AND videoId=:videoId");
+        $query->bindParam(":username", $username);
+        $query->bindParam(":videoId", $videoId);
+        $query->execute();
+
+        return $query->rowCount() > 0;
+    }
+
+    public function wasDislikedBy() {
+        $videoId = $this->getId();
+        $username = $this->userLoggedInObj->getUsername();
+
+        $query = $this->con->prepare("SELECT * FROM dislikes WHERE username=:username AND videoId=:videoId");
+        $query->bindParam(":username", $username);
+        $query->bindParam(":videoId", $videoId);
+        $query->execute();
+
+        return $query->rowCount() > 0;
+    }
 }
 
 
