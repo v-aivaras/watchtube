@@ -6,7 +6,6 @@ class User {
 
     public function __construct($con, $username) {
         $this->con = $con;
-        
         $query = $this->con->prepare("SELECT * FROM users WHERE username=:un");
         $query->bindParam(":un", $username);
         $query->execute();
@@ -14,6 +13,10 @@ class User {
         $this->sqlData = $query->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function isLoggedIn() {
+        return isset($_SESSION["userLoggedIn"]);
+    }
+    
     public function getUsername() {
         return $this->sqlData["username"];
     }
