@@ -56,7 +56,7 @@ class CommentControls {
         $cancelButtonAction = "toggleReply(this)";
         $cancelButton = ButtonProvider::createButton("Cancel", null, $cancelButtonAction, "cancelComment");
 
-        $postButtonAction = "postComment(this, \"$postedBy\", $videoId, $commentId, \"replesSection\")";
+        $postButtonAction = "postComment(this, \"$postedBy\", $videoId, $commentId, \"repliesSection\")";
         $postButton = ButtonProvider::createButton("Reply", null, $postButtonAction, "postComment");
 
         return "<div class='commentForm hidden'>
@@ -69,7 +69,7 @@ class CommentControls {
     }
 
     private function createLikeButton() {
-        $commentId = $this->comment->getLikes();
+        $commentId = $this->comment->getId();
         $videoId = $this->comment->getVideoId();
         $action = "likeComment($commentId, this, $videoId)";
         $class = "likeButton";
@@ -82,7 +82,7 @@ class CommentControls {
     }
 
     private function createDislikeButton() {
-        $commentId = $this->comment->getLikes();
+        $commentId = $this->comment->getId();
         $videoId = $this->comment->getVideoId();
         $action = "dislikeComment($commentId, this, $videoId)";
         $class = "dislikeButton";

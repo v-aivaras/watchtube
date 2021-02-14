@@ -3,6 +3,7 @@ require_once("includes/header.php");
 require_once("includes/classes/VideoPlayer.php"); 
 require_once("includes/classes/VideoInfoSection.php");
 require_once("includes/classes/CommentSection.php");
+require_once("includes/classes/Comment.php");
 
 if(!isset($_GET["id"])) {
     echo "No URL passed into page.";
