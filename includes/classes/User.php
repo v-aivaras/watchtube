@@ -19,7 +19,7 @@ class User {
     
     // -------------------------------------
     public function getUsername() {
-        return $this->sqlData["username"];
+        return $this->sqlData["username"] ??= "";
     }
 
     public function getName() {
@@ -39,7 +39,7 @@ class User {
     }
 
     public function getProfilePic() {
-        return $this->sqlData["profilePic"];
+        return $this->sqlData["profilePic"] ??= "assets/images/profilePictures/default.png";
     }
 
     public function getSignUpDate() {
