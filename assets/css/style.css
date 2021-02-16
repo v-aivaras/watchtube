@@ -43,6 +43,16 @@ a:hover {
 
 #mastHeadContainer .rightIcons {
     height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.signInLink {
+    color: #2692e6;
+    margin-left: 15px;
+    border: 1px solid #2692e6;
+    border-radius: 3px;
+    padding: 4px;
 }
 
 #mastHeadContainer button img {
@@ -637,11 +647,6 @@ a:hover {
 
 .videoGridHeader a:last-child:after {
     content: ''
-}
-
-.signInLink {
-    color: #f00;
-    margin-left: 15px;
 }
 
 #sideNavContainer .navigationItems {
