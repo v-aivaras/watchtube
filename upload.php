@@ -7,12 +7,12 @@ require_once("includes/classes/VideoDetailsFormProvider.php");
 <div class="column">
 
     <?php
-    $formProvider = new VideoDetailsFormProvider($con);
-    echo $formProvider->createUploadForm();
-
-
-
-
+    if(User::isLoggedIn()) {
+      $formProvider = new VideoDetailsFormProvider($con);
+      echo $formProvider->createUploadForm();
+    } else {
+      echo "Please sign in to upload video";
+    }
     ?>
 
 </div>

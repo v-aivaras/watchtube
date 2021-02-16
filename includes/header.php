@@ -52,11 +52,12 @@ $userLoggedInObj = new User($con, $usernameLoggedIn);
             </div>
 
             <div class="rightIcons">
-                <a href="upload.php">
-                    <img class="upload" src="assets/images/icons/upload.png" alt="Upload" title="Upload">
-                </a>
-
                 <?php
+                if(User::isLoggedIn()) {
+                    echo "<a href='upload.php'>
+                        <img class='upload' src='assets/images/icons/upload.png' alt='Upload' title='Upload>
+                    </a>";
+                } 
                     echo ButtonProvider::createUserProfileNavigationButton($con, $userLoggedInObj->getUsername());
                 ?>
             </div>
