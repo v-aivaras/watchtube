@@ -9,6 +9,10 @@ class ProfileData {
         $this->profileUserObj = new User($con, $profileUsername);
     }
 
+    public function getProfileUserObj() {
+        return $this->profileUserObj;
+    }
+
     public function getProfileUsername() {
         return $this->profileUserObj->getUsername();
     }
@@ -31,5 +35,25 @@ class ProfileData {
         return $this->profileUserObj->getName();
     }
 
+    public function getProfilePic() {
+        return $this->profileUserObj->getProfilePic();
+    }
+
+    public function getSubscriberCount() {
+        return $this->profileUserObj->getSubscriberCount();
+    }
+
+    public function getUserVideos() {
+        $uploadedBy = $this->getProfileUsername();
+        $query = $this->con->prepare("SELECT * FROM videos WHERE uploadedBy=:uploadedBy ORDER BY uploadDate DESC");
+        $query->bindParam(":uploadedBy", $uploadedBy);
+        $query->execute();
+
+        $videos = array();
+        while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $videos[] = new Video($this->con, $row, $this->profileUserObj->getUsername());
+        }
+        return $videos;
+    }
 }
 ?>

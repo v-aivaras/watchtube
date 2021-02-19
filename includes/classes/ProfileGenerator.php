@@ -43,15 +43,69 @@ class ProfileGenerator {
     }
 
     public function createHeaderSection() {
-        
+        $profileImage = $this->profileData->getProfilePic();
+        $name = $this->profileData->getProfileUserFullName();
+        $subCount = $this->profileData->getSubscriberCount();
+
+        $button = $this->createHeaderButton();
+        return "<div class='profileHeader'>
+                    <div class='userInfoContainer'>
+                        <img class='profileImage' src='$profileImage'>
+                        <div class='userInfo'>
+                            <span class='title'>$name</span>
+                            <span class='subscriberCount'>$subCount subscribers</span>
+                        </div>
+                    </div>
+                    <div class='buttonContainer'>
+                        <div class='buttonItem'>
+                            $button
+                        </div>
+                    </div>
+                </div>";
     }
 
     public function createTabsSection() {
-        
+        return "<ul class='nav nav-tabs' role='tablist'>
+                    <li class='nav-item'>
+                    <a class='nav-link active' id='videos-tab' data-toggle='tab' 
+                        href='#videos' role='tab' aria-controls='videos' aria-selected='true'>VIDEOS</a>
+                    </li>
+                    <li class='nav-item'>
+                    <a class='nav-link' id='about-tab' data-toggle='tab' href='#about' role='tab' 
+                        aria-controls='about' aria-selected='false'>ABOUT</a>
+                    </li>
+                </ul>";
     }
 
     public function createContentSection() {
-        
+        $videos = $this->profileData->getUserVideos();
+
+        if(sizeof($videos) > 0) {
+            $videoGrid = new VideoGrid($this->con, $this->userLoggedInObj);
+            $videoGridHtml = $videoGrid->create($videos, null, false);
+        } else {
+            $videoGridHtml = "<span>This user has no videos</span>";
+        }
+
+        $aboutSection = "ddd";
+        return "
+        <div class='tab-content channelContent'>
+            <div class='tab-pane fade show active' id='videos' role='tabpanel' aria-labelledby='videos-tab'>
+             $videoGridHtml
+            </div>
+            <div class='tab-pane fade' id='about' role='tabpanel' aria-labelledby='about-tab'>
+                $aboutSection
+            </div>
+        </div>";
+    }
+
+    private function createHeaderButton() {
+        if($this->userLoggedInObj->getUsername() == $this->profileData->getProfileUsername()) {
+            return "";
+        } else {
+            return ButtonProvider::createSubscriberButton($this->con, 
+                        $this->profileData->getProfileUserObj(), $this->userLoggedInObj);
+        }
     }
 
 }
