@@ -14,7 +14,7 @@ class User {
     }
 
     public static function isLoggedIn() {
-        return isset($_SESSION["userLoggedIn"]);
+        return (isset($_SESSION["userLoggedIn"]) && $_SESSION["userLoggedIn"] != "");
     }
     
     // -------------------------------------
