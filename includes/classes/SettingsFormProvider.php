@@ -2,14 +2,14 @@
 class SettingsFormFormProvider {
 
 
-    public function createUserDetailsForm() {
-        $firstNameInput = $this->createFirstNameInput(null);
-        $lastNameInput = $this->createLastNameInput(null);
-        $emailInput = $this->createEmailInput(null);
+    public function createUserDetailsForm($firstName, $lastName, $email) {
+        $firstNameInput = $this->createFirstNameInput($firstName);
+        $lastNameInput = $this->createLastNameInput($lastName);
+        $emailInput = $this->createEmailInput($email);
         $saveButton = $this->createSaveUserDetailsButton();
 
         return "
-            <form action='processing.php' method='POST' enctype='multipart/form-data'>
+            <form action='settings.php' method='POST' enctype='multipart/form-data'>
                 <span class='title'>User details</span>
                 $firstNameInput
                 $lastNameInput
@@ -25,7 +25,7 @@ class SettingsFormFormProvider {
         $saveButton = $this->createSavePasswordButton();
 
         return "
-            <form action='processing.php' method='POST' enctype='multipart/form-data'>
+            <form action='settings.php' method='POST' enctype='multipart/form-data'>
                 <span class='title'>Update Password</span>
                 $oldPasswordInput
                 $newPassword1Input
