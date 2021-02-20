@@ -9,11 +9,13 @@ class Constants {
     public static $emailsDoNotMatch = "Your emails do not match";
     public static $emailInvalid = "Please enter a valid email address";
     public static $emailTaken = "This email is already in use";
-    public static $passwordsDoNotMatch = "Your emailspasswords do not match";
+    public static $passwordsDoNotMatch = "Your emails passwords do not match";
     public static $passwordNotAlphanumeric = "Your password can only contain letters and numbers";
     public static $passwordLength = "Your password must be between 5 and 30 characters";
 
     public static $loginFailed = "Your username or password was incorrect";
+
+    public static $passwordIncorrect = "Incorrect password";
 }
 
 ?>
