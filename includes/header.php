@@ -55,7 +55,7 @@ $userLoggedInObj = new User($con, $usernameLoggedIn);
                 <?php
                 if(User::isLoggedIn()) {
                     echo "<a href='upload.php'>
-                        <img class='upload' src='assets/images/icons/upload.png' alt='Upload' title='Upload>
+                        <img class='upload' src='assets/images/icons/upload.png' alt='Upload' title='Upload'>
                     </a>";
                 } 
                     echo ButtonProvider::createUserProfileNavigationButton($con, $userLoggedInObj->getUsername());
