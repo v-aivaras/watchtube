@@ -810,10 +810,11 @@ a:hover {
 
 .editVideoContainer .topSection {
     display: flex;
+    margin-bottom: 20px;
 }
 
 .topSection .videoPlayer {
-    max-height: 300px;
+    max-height: 380px;
     flex: 1;
 }
 
