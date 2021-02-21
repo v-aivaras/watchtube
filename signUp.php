@@ -59,7 +59,9 @@ function getInputValue($name) {
         <div class="column">
         
             <div class="header">
-                <img src="assets/images/icons/WatchTubeLogo.png" alt="logo" title="logo">
+                <a href="index.php">
+                    <img src="assets/images/icons/WatchTubeLogo.png" alt="logo" title="logo">
+                </a>
                 <h3>Sign Up</h3>
                 <span>to continue to WatchTube</span>
 
