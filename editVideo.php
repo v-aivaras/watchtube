@@ -20,7 +20,7 @@ if($video->getUploadedBy() != $userLoggedInObj->getUsername()) {
     exit();
 }
 ?>
-
+<script src="assets/js/editVideoActions.js"></script>
 <div class="editVideoContainer column">
 
     <div class="topSection">
