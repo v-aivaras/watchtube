@@ -1,4 +1,4 @@
-# watchflix# watchtube
+# watchtube
 Youtube Clone
 Learning object oriented programming PHP + MySQL with some Ajax, JavaScript, jQuerry and CSS.
 
