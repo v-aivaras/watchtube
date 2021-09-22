@@ -1,6 +1,14 @@
 # watchtube
-Youtube Clone
-Learning object oriented programming PHP + MySQL with some Ajax, JavaScript, jQuerry and CSS.
+#### Youtube Clone
+
+Created while Learning object oriented programming PHP + MySQL with some Ajax, JavaScript, jQuerry and CSS.
+
+#### Main features:
+- Video player
+- Video upload
+- Video search
+- Like/dislike and comment videos
+- Subscribe to other channels
 
 Index page of Watchtube when not logged in:
 
@@ -35,3 +43,8 @@ Video search:
 User's profile page:
 
 ![watchflix](readme-screenshots/watchtube-settings.jpg)
+
+
+Based on lessons from [Reece Kenney](https://www.udemy.com/user/reecekenney).
+
+Project uses public domain videos (copyright free).
